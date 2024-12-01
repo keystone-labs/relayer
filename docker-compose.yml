@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  relayer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GO_VERSION: 1.22.0
+    ports:
+      - "3000:3000"  # API port
+      - "9090:9090"  # Metrics port
+    volumes:
+      - ./config:/app/config
+      - ./logs:/app/logs
+      - ./data:/app/data
+    environment:
+      - CONFIG_FILE=/app/config/config.yaml
+      - LOG_FILE=/app/logs/relayer.log
+    restart: unless-stopped
+    networks:
+      - relayer-network
+
+networks:
+  relayer-network:
+    driver: bridge
