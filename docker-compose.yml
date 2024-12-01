@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        GO_VERSION: 1.22.0
+        GO_VERSION: 1.23.0
     ports:
       - "3000:3000"  # API port
       - "9090:9090"  # Metrics port

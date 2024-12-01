@@ -1,4 +1,4 @@
-ARG GO_VERSION=1.22.0
+ARG GO_VERSION=1.23.0
 FROM golang:${GO_VERSION}-alpine AS builder
 
 # Install build dependencies
