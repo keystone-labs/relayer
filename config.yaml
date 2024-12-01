@@ -1,0 +1,63 @@
+# Relayer Configuration
+
+# Network Configuration
+networks:
+  bitcoin:
+    rpc_url: "http://localhost:8332"
+    network: "mainnet"  # or "testnet"
+    auth:
+      username: "${BTC_RPC_USER}"
+      password: "${BTC_RPC_PASS}"
+    min_confirmations: 6
+
+  sui:
+    rpc_url: "http://localhost:9000"
+    auth:
+      private_key: "${SUI_RELAYER_KEY}"  # Relayer's private key for signing transactions
+      relayer_cap_id: "${RELAYER_CAP_ID}"  # RelayerCap object ID from btc_bridge.move
+
+# Security Configuration
+security:
+  max_retries: 3
+  retry_delay: 5000  # milliseconds
+  timeout: 30000     # milliseconds
+  max_batch_size: 50
+
+# Light Client Configuration
+light_client:
+  checkpoint_dir: "./checkpoints"
+  max_reorg_depth: 6
+  sync_interval: 60  # seconds
+  auth:
+    client_id: "${LIGHT_CLIENT_ID}"
+    client_secret: "${LIGHT_CLIENT_SECRET}"
+
+# Monitoring Configuration
+monitoring:
+  address_batch_size: 1000
+  poll_interval: 60  # seconds
+  max_parallel_verifications: 10
+
+# Database Configuration
+database:
+  url: "postgresql://localhost:5432/relayer"
+  auth:
+    username: "${DB_USER}"
+    password: "${DB_PASS}"
+  max_connections: 20
+
+# Logging Configuration
+logging:
+  level: "info"  # debug, info, warn, error
+  file: "./logs/relayer.log"
+  max_size: 100    # MB
+  max_backups: 3
+  max_age: 28      # days
+
+# API Configuration
+api:
+  enabled: true
+  port: 3000
+  auth:
+    api_key: "${API_KEY}"  # For external service authentication
+    allowed_ips: ["127.0.0.1"]  # IP whitelist
