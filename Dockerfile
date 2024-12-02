@@ -16,6 +16,9 @@ RUN go mod download
 # Copy source code
 COPY . .
 
+# Add this line before make build
+RUN go mod tidy
+
 # Build the application
 RUN make build
 
